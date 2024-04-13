@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import './App.css';
 import AuthPage from './modules/AuthPage';
 import PrivateRoute from './components/PrivateRoute';
@@ -7,7 +7,6 @@ import DashboardPage from './modules/DashboardPage';
 import { useAppDispatch } from './app/hooks';
 import { setUser } from './features/authSlice';
 import { ConfigProvider } from 'antd';
-import Layout from './components/Layout';
 import NotFound from './components/NotFound';
 
 
@@ -34,7 +33,6 @@ function App() {
           <Route path='*' element={<Navigate to='/not-found' />} />
         </Routes>
       </ConfigProvider>
-
     </div>
   );
 }

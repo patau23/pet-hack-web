@@ -13,23 +13,20 @@ export const authApi = createApi({
   }),
   endpoints: (builder) => ({
     loginUser: builder.mutation({
-      query: (body: { email: string; password: string }) => {
+      query: (body: { username: string; password: string }) => {
         return {
-          url: "/users/signin",
+          url: "/auth/login",
           method: "post",
           body,
         }
       }
     }),
     registerUser: builder.mutation({
-      query: (body: { firstName: string; lastName: string; email: string; password: string }) => {
+      query: (body: { username: string, email: string; password: string }) => {
         return {
-          url: "/register",
+          url: "/auth/signup",
           method: "post",
-          body: {
-            ...body,
-            role: "Your_role"
-          },
+          body,
         }
       }
     })
