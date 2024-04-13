@@ -1,24 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import './App.css';
+import AuthPage from './modules/AuthPage';
+import PrivateRoute from './components/PrivateRoute';
+import DashboardPage from './modules/DashboardPage';
+import { useAppDispatch } from './app/hooks';
+import { setUser } from './features/authSlice';
+import { ConfigProvider } from 'antd';
+import Layout from './components/Layout';
+import NotFound from './components/NotFound';
+
 
 function App() {
+  const dispatch = useAppDispatch();
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+  useEffect(() => {
+    dispatch(setUser(user));
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ConfigProvider prefixCls='pet-hack' theme={{ token: { colorPrimary: '#000000' } }}>
+        <Routes>
+          <Route path="/" element={<Navigate to="/auth" replace />} />
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/dashboard" element={
+            <PrivateRoute>
+              <DashboardPage />
+            </PrivateRoute>
+          } />
+          <Route path='/not-found' element={<NotFound></NotFound>} />
+          <Route path='*' element={<Navigate to='/not-found' />} />
+        </Routes>
+      </ConfigProvider>
+
     </div>
   );
 }
