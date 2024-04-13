@@ -62,11 +62,11 @@ const AuthPage = () => {
 
   useEffect(() => {
     if (isLoginSuccess) {
-      dispatch(setUser({ name: loginData.result.name, token: loginData.token }))
+      dispatch(setUser({ name: loginData.name, token: loginData.token }))
       navigate("/dashboard")
     }
     if (isRegisterSuccess) {
-      dispatch(setUser({ name: registerData.result.name, token: registerData.token }))
+      dispatch(setUser({ name: registerData.name, token: registerData.token }))
       navigate("/dashboard")
     }
   }, [isLoginSuccess, isRegisterSuccess])

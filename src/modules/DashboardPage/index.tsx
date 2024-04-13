@@ -12,7 +12,6 @@ const Dashboard = () => {
   const dispatch = useAppDispatch();
   const handleLogout = () => {
     dispatch(logout());
-    toast.success("User Logout Succesfully")
     navigate("/auth")
   }
   return (
